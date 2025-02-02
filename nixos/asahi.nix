@@ -2,7 +2,7 @@
 {
   hardware.asahi = {
     enable = true;
-    setupAsahiSound = true;
+    setupAsahiSound = false;
     useExperimentalGPUDriver = true;
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = pkgs.fetchzip {

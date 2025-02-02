@@ -13,7 +13,9 @@
     # ../../home/programs/nextcloud
     ../../home/programs/thunar
     ../../home/programs/lazygit
-    # ../../home/programs/zen
+    ../../home/programs/zen
+    ../../home/programs/micro
+    ../../home/programs/vscodium
     # ../../home/programs/duckduckgo-colorscheme
 
     # Scripts
@@ -26,76 +28,104 @@
     ../../home/system/hyprpanel
     ../../home/system/hyprpaper
     ../../home/system/wofi
-    ../../home/system/batsignal
+    # ../../home/system/batsignal
     ../../home/system/zathura
     ../../home/system/mime
     ../../home/system/udiskie
     ../../home/system/clipman
-
-    # ./secrets # CHANGEME: You should probably remove this line, this is where I store my secrets
   ];
 
   home = {
     inherit (config.var) username;
     homeDirectory = "/home/" + config.var.username;
 
-    packages = with pkgs; [
-      # Apps
-      # discord # Chat
-      # bitwarden # Password manager
-      vlc # Video player
-      # blanket # White-noise app
-      # obsidian # Note taking app
-      # planify
-      gnome-calendar
-      textpieces
-      curtail
+    packages =
+      (with pkgs; [
+        # Apps
+        # discord # Chat
+        # bitwarden # Password manager
+        vlc # Video player
+        # blanket # White-noise app
+        # obsidian # Note taking app
+        # planify
+        gnome-calendar
+        textpieces
+        curtail
 
-      # Dev
-      go
-      nodejs_latest
-      python3
-      jq
-      # figlet
-      just
+        # Dev
+        go
+        nodejs_latest
+        python3
+        jq
+        # figlet
+        just
 
-      # Utils
-      zip
-      unzip
-      optipng
-      pfetch
-      pandoc
-      btop
+        # Utils
+        zip
+        unzip
+        optipng
+        pfetch
+        pandoc
+        btop
 
-      # Just cool
-      peaclock
-      cbonsai
-      pipes
-      cmatrix
+        # Just cool
+        peaclock
+        cbonsai
+        pipes
+        cmatrix
 
-      # Backup
-      # firefox
-      ungoogled-chromium
-      # vscode
+        # Backup
+        firefox
+        # ungoogled-chromium
+        # vscode
 
-      # Temp
-      mpv
-      pnpm
-      # realvnc-vnc-viewer
+        # Temp
+        mpv
+        pnpm
+        # realvnc-vnc-viewer
 
-      git-crypt
-      glow
-      gnumake
-      gptfdisk
-      nil
-      nixfmt-rfc-style
-      pure-prompt
-      rclone
-    ];
+        git-crypt
+        glow
+        gnumake
+        gptfdisk
+        nil
+        nixfmt-rfc-style
+        pure-prompt
+        rclone
+        nix-prefetch-git
+        nix-prefetch-github
+      ])
+      ++ (with pkgs.nix-shell-scripts; [
+        a2dl
+        alphabetize
+        cfg
+        clone
+        colortable
+        commit
+        cop
+        diskusage
+        del
+        mi
+        nish
+        nix-clean
+        nixhash
+        nixos-deploy
+        readme
+        rm-result
+        swatch
+      ]);
 
-    # Import my profile picture, used by the hyprpanel dashboard
-    file.".face.icon" = {
-      source = ./profile_picture.jpg;
+    file = {
+      ".face.icon" = {
+        source = ./profile_picture.jpg;
+      };
+
+      ".hushlogin".text = "";
+
+      "rclone.conf" = {
+        source = ../../.secrets/rclone.conf;
+        target = "${config.xdg.configHome}/rclone/rclone.conf";
+      };
     };
 
     # Don't touch this

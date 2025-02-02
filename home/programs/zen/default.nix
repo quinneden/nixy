@@ -15,7 +15,7 @@ let
       "config": {
         "title" : "Welcome Home",
         "openLinksInNewTab": false,
-        "locale": "fr-FR",
+        "locale": "en-US",
         "colors": {
           "primary": "${accent}",
           "background": "${background}",
@@ -26,24 +26,13 @@ let
           {
             "name": "Bookmarks",
             "links": [
-              {"title": "MyNixOs", "url": "https://mynixos.com", "icon": "󱄅"},
+              {"title": "ChatGPT", "url": "https://chat.openai.com/", "icon": "󰭹"},
+              {"title": "Cloudflare Dash", "url": "https://dash.cloudflare.com/", "icon": ""},
               {"title": "Github", "url": "https://github.com", "icon": ""},
-              {"title": "Proton", "url": "https://mail.proton.me/u/0/inbox", "icon": ""},
-              {"title": "Cloudflare One", "url": "https://one.dash.cloudflare.com/", "icon": ""},
-              {"title": "Chat GPT", "url": "https://chat.openai.com/", "icon": "󰭹"},
-              {"title": "Nixvim", "url": "https://nix-community.github.io/nixvim/", "icon": ""},
-              {"title": "Hyprland Wiki", "url": "https://wiki.hyprland.org/", "icon": "󰖬"},
-              {"title": "Youtube", "url": "https://youtube.com", "icon": "󰗃"},
-              {"title": "Figma", "url": "https://figma.com", "icon": ""},
-              {"title": "Server", "url": "https://home.anotherhadi.com", "icon": ""}
-            ]
-          },
-          {
-            "name": "Work",
-            "links": [
-              {"title": "Outlook", "url": "https://outlook.office.com/mail/", "icon": "󰴢"},
-              {"title": "Office", "url": "https://www.office.com/?auth=2", "icon": "󰏆"},
-              {"title": "Teams", "url": "https://teams.microsoft.com/_", "icon": "󰊻"}
+              {"title": "Home-Manager Options", "url": "https://nix-community.github.io/home-manager/options.xhtml", "icon": ""},
+              {"title": "NixOS Manual", "url": "https://nixos.org/manual/nixos/unstable", "icon": ""},
+              {"title": "NixOS/nixpkgs", "url": "https://github.com/nixos/nixpkgs", "icon": ""},
+              {"title": "NixOS Search", "url": "https://search.nixos.org", "icon": ""},
             ]
           }
         ]
@@ -80,10 +69,10 @@ let
   };
 in
 {
-  home.file.".config/homepage" = {
-    source = "${homepage}/build";
-    recursive = true;
-  };
+  # home.file.".config/homepage" = {
+  #   source = "${homepage}/build";
+  #   recursive = true;
+  # };
 
   home.packages = with pkgs; [ inputs.zen-browser.packages."${system}".default ];
 }

@@ -1,5 +1,3 @@
-# Hyprpanel is the bar on top of the screen
-# Display informations like workspaces, battery, wifi, ...
 { inputs, config, ... }:
 let
   transparentButtons = config.var.theme.bar.transparentButtons;
@@ -46,7 +44,7 @@ in
             "systray"
             "volume"
             "bluetooth"
-            "battery"
+            # "battery"
             "network"
             "clock"
             "notifications"

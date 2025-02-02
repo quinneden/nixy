@@ -7,7 +7,7 @@
 
     autoPrune = {
       enable = true;
-      dates = [ "weekly" ];
+      dates = "weekly";
       flags = [ "--all" ];
     };
   };

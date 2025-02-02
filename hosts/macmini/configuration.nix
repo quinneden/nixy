@@ -2,12 +2,11 @@
 {
   imports = [
     ../../nixos/asahi.nix
-    ../../nixos/audio.nix
     ../../nixos/auto-upgrade.nix
     ../../nixos/bluetooth.nix
     ../../nixos/fonts.nix
     ../../nixos/home-manager.nix
-    ../../nixos/network-manager.nix
+    ../../nixos/network.nix
     ../../nixos/nix.nix
     ../../nixos/podman.nix
     ../../nixos/systemd-boot.nix
@@ -17,7 +16,7 @@
     ../../nixos/utils.nix
     ../../nixos/variables-config.nix
     ../../nixos/xdg-portal.nix
-    ../../themes/stylix/2025.nix
+    ../../themes/stylix/2026.nix
     ./hardware-configuration.nix
     ./variables.nix
   ];

@@ -12,6 +12,7 @@
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprspace.url = "github:KZDKM/Hyprspace";
+    micro-colors-nix.url = "github:quinneden/micro-colors-nix";
     nh.url = "github:viperml/nh";
     nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -34,10 +35,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    zen-browser.url = "github:quinneden/zen-browser-flake";
   };
 
   outputs =
@@ -70,8 +68,8 @@
             inputs.home-manager.nixosModules.default
             inputs.lix-module.nixosModules.default
             inputs.nixos-apple-silicon.nixosModules.default
-            inputs.stylix.nixosModules.default
-            # ./hosts/macmini/configuration.nix
+            inputs.stylix.nixosModules.stylix
+            ./hosts/macmini/configuration.nix
           ];
         };
 

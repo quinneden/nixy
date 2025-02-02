@@ -21,6 +21,6 @@
     autoUpgrade = false;
     autoGarbageCollector = true;
 
-    theme = import ../../themes/var/2025.nix;
+    theme = import ../../themes/var/2026.nix;
   };
 }

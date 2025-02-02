@@ -1,15 +1,54 @@
-# My shell configuration
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }:
 let
-  fetch = config.var.theme.fetch; # neofetch, nerdfetch, pfetch
-in
-{
+  inherit (pkgs.stdenv) isDarwin;
 
+  commonAliases = {
+    cddf = "cd $dotdir";
+    cddl = "cd ~/Downloads";
+    code = "codium";
+    gst = "git status";
+    gsur = "git submodule update --init --recursive";
+    l = "eza -la --group-directories-first";
+    ll = "eza -glAh --octal-permissions --group-directories-first";
+    ls = "eza -A";
+    push = "git push";
+  };
+
+  darwinAliases = {
+    lc = "limactl";
+    reboot = "sudo reboot";
+    sed = "gsed";
+    shutdown = "sudo shutdown -h now";
+    darwin-man = "man configuration.nix";
+  };
+
+  linuxAliases = {
+    bs = "stat -c%s";
+    db = "distrobox";
+    tree = "eza -ATL3 --git-ignore";
+  };
+
+  darwinVariables = {
+    PATH = "/run/current-system/sw/bin:/etc/profiles/per-user/quinn/bin:/Users/quinn/.local/bin:\${PATH:+$PATH}";
+    TMPDIR = "/tmp";
+    PAGER = "less";
+    LESS = "-RF";
+  };
+
+  linuxVariables = {
+    NIXOS_CONFIG = "$HOME/.dotfiles";
+    NH_FLAKE = "$HOME/.dotfiles";
+  };
+
+  initExtraDarwin = ''[[ $PATH =~ '/nix/store' ]] || eval $(/opt/homebrew/bin/brew shellenv)'';
+in
+with lib;
+{
   home.packages = with pkgs; [
     bat
     ripgrep
@@ -17,100 +56,70 @@ in
     sesh
   ];
 
-  home.sessionPath = [ "$HOME/go/bin" ];
-
   programs.zsh = {
     enable = true;
+    pure-prompt.enable = true;
+    dotDir = ".config/zsh";
+    shellAliases = commonAliases // (if isDarwin then darwinAliases else linuxAliases);
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    historySubstringSearch.enable = true;
+    history.path = "${config.xdg.configHome}/zsh/.zsh_history";
 
-    initExtraFirst = ''
-      bindkey -e
-      ${
-        if fetch == "neofetch" then
-          pkgs.neofetch + "/bin/neofetch"
-        else if fetch == "nerdfetch" then
-          "nerdfetch"
-        else if fetch == "pfetch" then
-          "echo; ${pkgs.pfetch}/bin/pfetch"
-        else
-          ""
-      }
-
-      function sesh-sessions() {
-        session=$(sesh list -t -c | fzf --height 70% --reverse)
-        [[ -z "$session" ]] && return
-        sesh connect $session
-      }
-
-      zle     -N             sesh-sessions
-      bindkey -M emacs '\es' sesh-sessions
-      bindkey -M vicmd '\es' sesh-sessions
-      bindkey -M viins '\es' sesh-sessions
-    '';
-
-    history = {
-      ignoreDups = true;
-      save = 10000;
-      size = 10000;
-    };
-
-    profileExtra = lib.optionalString (config.home.sessionPath != [ ]) ''
-      export PATH="$PATH''${PATH:+:}${lib.concatStringsSep ":" config.home.sessionPath}"
-    '';
-
-    #NOTE- for btop to show gpu usage
-    #may want to check the driver version with:
-    #nix path-info -r /run/current-system | grep nvidia-x11
-    #and
-    #nix search nixpkgs nvidia_x11
-    sessionVariables = {
-      LD_LIBRARY_PATH = lib.concatStringsSep ":" [
-        "${pkgs.linuxPackages_latest.nvidia_x11_beta}/lib" # change the package name according to nix search result
-        "$LD_LIBRARY_PATH"
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "colored-man-pages"
+        "direnv"
+        "eza"
+        "fzf"
+        "${optionalString isDarwin "iterm2"}"
+        "zoxide"
       ];
+      custom = "${config.xdg.configHome}/zsh";
     };
 
-    shellAliases = {
-      vim = "nvim";
-      vi = "nvim";
-      v = "nvim";
-      c = "clear";
-      clera = "clear";
-      celar = "clear";
-      e = "exit";
-      cd = "z";
-      ls = "eza --icons=always --no-quotes";
-      tree = "eza --icons=always --tree --no-quotes";
-      sl = "ls";
-      open = "${pkgs.xdg-utils}/bin/xdg-open";
-      icat = "${pkgs.kitty}/bin/kitty +kitten icat";
-      ssh = "kitty +kitten ssh";
+    initExtraBeforeCompInit =
+      ''
+        fpath+=(
+          "${pkgs.lix}/share/zsh/site-functions"
+          "/etc/profiles/per-user/quinn/share/zsh/site-functions"
+          "${config.xdg.configHome}/zsh/completions"
+        )
+      ''
+      + (optionalString isDarwin ''
+        fpath+=(
+          "/opt/homebrew/share/zsh/site-functions"
+          "/opt/vagrant/embedded/gems/gems/vagrant-2.4.3/contrib/zsh $fpath"
+        )
+      '');
 
-      wireguard-import = "nmcli connection import type wireguard file";
+    initExtra =
+      ''
+        for f ($HOME/.config/zsh/functions/*(N.)); do source $f; done
+      ''
+      + (optionalString isDarwin initExtraDarwin);
 
-      notes = "nvim ~/nextcloud/notes/index.md --cmd 'cd ~/nextcloud/notes' -c ':Telescope find_files'";
-      note = "notes";
+    sessionVariables = {
+      dotdir = "$HOME/.dotfiles";
+      EDITOR = "micro";
+      LANG = "en_US.UTF-8";
+      LC_ALL = "en_US.UTF-8";
+      MICRO_TRUECOLOR = "1";
+    } // (if isDarwin then darwinVariables else linuxVariables);
+  };
 
-      # git
-      g = "lazygit";
-      ga = "git add";
-      gc = "git commit";
-      gcu = "git add . && git commit -m 'Update'";
-      gp = "git push";
-      gpl = "git pull";
-      gs = "git status";
-      gd = "git diff";
-      gco = "git checkout";
-      gcb = "git checkout -b";
-      gbr = "git branch";
-      grs = "git reset HEAD~1";
-      grh = "git reset --hard HEAD~1";
-
-      gaa = "git add .";
-      gcm = "git commit -m";
-    };
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+    shellAliases = commonAliases // (if isDarwin then darwinAliases else linuxAliases);
+    bashrcExtra = ''
+      PS1="\[\e[32m\]\u@\h\[\e[0m\]:\[\e[34m\]\w\[\e[0m\] \$ "
+      HISTCONTROL=ignoredups:erasedups
+      shopt -s histappend
+      PROMPT_COMMAND='history -a; history -n'
+      bind '"\e[A": history-search-backward' # Search history with Up arrow
+      bind '"\e[B": history-search-forward'  # Search history with Down arrow
+    '';
   };
 }

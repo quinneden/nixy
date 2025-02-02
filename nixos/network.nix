@@ -3,7 +3,7 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   networking = {
-    hostname = config.var.hostname;
+    hostName = config.var.hostname;
 
     useDHCP = lib.mkDefault false;
     interfaces.wlan0.useDHCP = lib.mkDefault true;

@@ -14,12 +14,12 @@
 
       listener = [
         {
-          timeout = 600;
+          timeout = 900;
           on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
 
         {
-          timeout = 660;
+          timeout = 3600;
           on-timeout = "systemctl suspend";
         }
       ];

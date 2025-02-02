@@ -1,7 +1,6 @@
-{ config, ... }:
+{ config, secrets, ... }:
 let
-  username = config.var.git.username;
-  email = config.var.git.email;
+  inherit (config.var.git) username email;
 in
 {
   programs.git = {
@@ -11,7 +10,6 @@ in
     ignores = [
       ".cache/"
       ".DS_Store"
-      ".idea/"
       "*.swp"
       "*.elc"
       "auto-save-list"
@@ -21,9 +19,12 @@ in
       "result-*"
     ];
     extraConfig = {
+      color.ui = "1";
+      core.editor = "micro";
+      github.user = "quinneden";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
-      color.ui = "1";
+      url."https://oauth2:${secrets.github.token}@github.com".insteadOf = "https://github.com";
     };
     aliases = {
       essa = "push --force";

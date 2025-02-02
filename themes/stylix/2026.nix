@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 let
   base16-schemes = pkgs.base16-schemes.overrideAttrs {
     version = "spec-0.11";
@@ -14,7 +18,7 @@ in
   stylix = {
     enable = true;
 
-    base16Scheme = base16-schemes + "share/themes/gigavolt.yaml";
+    base16Scheme = (base16-schemes + "/share/themes/gigavolt.yaml");
 
     cursor = {
       package = pkgs.phinger-cursors;
