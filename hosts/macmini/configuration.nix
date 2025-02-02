@@ -23,6 +23,8 @@
 
   home-manager.users."${config.var.username}" = import ./home.nix;
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Don't touch this
   system.stateVersion = "24.05";
 }

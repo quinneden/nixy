@@ -108,6 +108,7 @@
         mi
         nish
         nix-clean
+        nix-switch
         nixhash
         nixos-deploy
         readme
