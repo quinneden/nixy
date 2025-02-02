@@ -2,37 +2,28 @@
 {
 
   imports = [
-    ./variables.nix
-
-    # Programs
-    ../../home/programs/kitty
-    # ../../home/programs/nvim
-    ../../home/programs/shell
+    ../../home/programs/duckduckgo-colorscheme
     ../../home/programs/fetch
     ../../home/programs/git
-    # ../../home/programs/nextcloud
-    ../../home/programs/thunar
+    ../../home/programs/kitty
     ../../home/programs/lazygit
-    ../../home/programs/zen
     ../../home/programs/micro
+    ../../home/programs/shell
+    ../../home/programs/thunar
     ../../home/programs/vscodium
-    # ../../home/programs/duckduckgo-colorscheme
-
-    # Scripts
-    ../../home/scripts # All scripts
-
-    # System (Desktop environment like stuff)
-    ../../home/system/hyprland
+    ../../home/programs/zen
+    ../../home/scripts
+    ../../home/system/clipman
     ../../home/system/hypridle
+    ../../home/system/hyprland
     ../../home/system/hyprlock
     ../../home/system/hyprpanel
     ../../home/system/hyprpaper
-    ../../home/system/wofi
-    # ../../home/system/batsignal
-    ../../home/system/zathura
     ../../home/system/mime
     ../../home/system/udiskie
-    ../../home/system/clipman
+    ../../home/system/wofi
+    ../../home/system/zathura
+    ./variables.nix
   ];
 
   home = {
@@ -41,49 +32,28 @@
 
     packages =
       (with pkgs; [
-        # Apps
-        # discord # Chat
-        # bitwarden # Password manager
-        vlc # Video player
-        # blanket # White-noise app
-        # obsidian # Note taking app
-        # planify
+        vlc
         gnome-calendar
         textpieces
         curtail
-
-        # Dev
         go
         nodejs_latest
         python3
         jq
-        # figlet
         just
-
-        # Utils
         zip
         unzip
         optipng
         pfetch
         pandoc
         btop
-
-        # Just cool
         peaclock
         cbonsai
         pipes
         cmatrix
-
-        # Backup
         firefox
-        # ungoogled-chromium
-        # vscode
-
-        # Temp
         mpv
         pnpm
-        # realvnc-vnc-viewer
-
         git-crypt
         glow
         gnumake

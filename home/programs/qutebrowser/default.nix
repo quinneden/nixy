@@ -10,9 +10,9 @@ let
   settings = ''
     {
       "config": {
-        "title" : "Welcome Home",
+        "title" : "Faggot- oop.. queen!",
         "openLinksInNewTab": false,
-        "locale": "fr-FR",
+        "locale": "en-US",
         "colors": {
           "primary": "${accent}",
           "background": "${background}",
@@ -23,24 +23,13 @@ let
           {
             "name": "Bookmarks",
             "links": [
-              {"title": "MyNixOs", "url": "https://mynixos.com", "icon": "󱄅"},
+              {"title": "ChatGPT", "url": "https://chat.openai.com/", "icon": "󰭹"},
+              {"title": "Cloudflare Dash", "url": "https://dash.cloudflare.com/", "icon": ""},
               {"title": "Github", "url": "https://github.com", "icon": ""},
-              {"title": "Proton", "url": "https://mail.proton.me/u/0/inbox", "icon": ""},
-              {"title": "Cloudflare One", "url": "https://one.dash.cloudflare.com/", "icon": ""},
-              {"title": "Chat GPT", "url": "https://chat.openai.com/", "icon": "󰭹"},
-              {"title": "Nixvim", "url": "https://nix-community.github.io/nixvim/", "icon": ""},
-              {"title": "Hyprland Wiki", "url": "https://wiki.hyprland.org/", "icon": "󰖬"},
-              {"title": "Youtube", "url": "https://youtube.com", "icon": "󰗃"},
-              {"title": "Figma", "url": "https://figma.com", "icon": ""},
-              {"title": "Server", "url": "https://home.anotherhadi.com", "icon": ""}
-            ]
-          },
-          {
-            "name": "Work",
-            "links": [
-              {"title": "Outlook", "url": "https://outlook.office.com/mail/", "icon": "󰴢"},
-              {"title": "Office", "url": "https://www.office.com/?auth=2", "icon": "󰏆"},
-              {"title": "Teams", "url": "https://teams.microsoft.com/_", "icon": "󰊻"}
+              {"title": "Home-Manager Options", "url": "https://nix-community.github.io/home-manager/options.xhtml", "icon": ""},
+              {"title": "NixOS Manual", "url": "https://nixos.org/manual/nixos/unstable", "icon": ""},
+              {"title": "NixOS/nixpkgs", "url": "https://github.com/nixos/nixpkgs", "icon": ""},
+              {"title": "NixOS Search", "url": "https://search.nixos.org", "icon": ""}
             ]
           }
         ]
@@ -50,16 +39,15 @@ let
 
   homepage = pkgs.buildNpmPackage {
     pname = "homepage";
-    version = "0.0.0";
+    version = "0.1.0";
 
     src = pkgs.fetchFromGitHub {
-      owner = "anotherhadi";
+      owner = "quinneden";
       repo = "homepage";
-      rev = "b77d35ed3596eb451bd2ec78063d7cc6e73c773d";
-      hash = "sha256-j/40922kfAh6zqJ4IRYpr66YXNNYsxuXwZ0aiJFJea0=";
+      rev = "refs/heads/main";
+      hash = "sha256-vpiaBb0iDnbYQH69ZbMurHtOerWNPX7HC7Hx0vM31C4=";
     };
 
-    # npmDepsHash = lib.fakeHash;
     npmDepsHash = "sha256-bG+CHTq2Rst3JMxsjAC81KhK+G7WwsTVD1eyP87g0z4=";
 
     buildPhase = ''
@@ -72,7 +60,7 @@ let
 
     meta = {
       description = "homepage";
-      homepage = "https://github.com/anotherhadi/homepage";
+      homepage = "https://github.com/quinneden/homepage";
     };
   };
 
