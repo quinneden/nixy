@@ -1,10 +1,8 @@
 { pkgs, config, ... }:
 let
-  hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
-in {
-
-  networking.hostName = hostname;
+in
+{
 
   services = {
     xserver = {
@@ -17,22 +15,23 @@ in {
   console.keyMap = keyboardLayout;
 
   environment.variables = {
+    NH_FLAKE = config.var.configDirectory;
     XDG_DATA_HOME = "$HOME/.local/share";
-    PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
-    EDITOR = "nvim";
+    # PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
+    EDITOR = "micro";
   };
 
-  services.libinput.enable = true;
   programs.dconf.enable = true;
+
   services = {
     dbus.enable = true;
     gvfs.enable = true;
+    libinput.enable = true;
     upower.enable = true;
-    power-profiles-daemon.enable = true;
+    # power-profiles-daemon.enable = true;
     udisks2.enable = true;
   };
 
-  # Faster rebuilding
   documentation = {
     enable = true;
     doc.enable = false;
@@ -43,13 +42,14 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    fd
     bc
-    gcc
-    git-ignore
-    xdg-utils
-    wget
     curl
+    fd
+    gcc
+    gh
+    git-ignore
+    wget
+    xdg-utils
   ];
 
   services.logind.extraConfig = ''

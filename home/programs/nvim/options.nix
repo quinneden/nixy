@@ -27,7 +27,11 @@
       cmdheight = 0;
 
       # Insert mode completion options
-      completeopt = [ "menu" "menuone" "noselect" ];
+      completeopt = [
+        "menu"
+        "menuone"
+        "noselect"
+      ];
 
       # Raise a dialog asking if you wish to save the current file(s)
       confirm = true;
@@ -47,7 +51,9 @@
       expandtab = true;
 
       # Disable `~` on nonexistent lines
-      fillchars = { eob = " "; };
+      fillchars = {
+        eob = " ";
+      };
 
       # Enable fold with all code unfolded
       foldcolumn = "1";

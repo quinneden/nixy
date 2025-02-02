@@ -4,18 +4,30 @@ let
   accent-alt = "#${config.lib.stylix.colors.base08}";
   muted = "#${config.lib.stylix.colors.base03}";
   background = "#${config.lib.stylix.colors.base00}";
-in {
+in
+{
 
   programs.nixvim = {
     plugins.mkdnflow = {
       enable = true;
-      modules = { conceal = false; };
-      toDo.symbols = [ " " "-" "x" "!" "/" ];
+      modules = {
+        conceal = false;
+      };
+      toDo.symbols = [
+        " "
+        "-"
+        "x"
+        "!"
+        "/"
+      ];
       mappings = {
         MkdnCreateLink = false;
         MkdnCreateLinkFromClipboard = {
           key = "<leader>ml";
-          modes = [ "n" "v" ];
+          modes = [
+            "n"
+            "v"
+          ];
         };
         MkdnDecreaseHeading = {
           key = "<leader>m-";
@@ -98,7 +110,10 @@ in {
         MkdnTablePrevRow = false;
         MkdnToggleToDo = {
           key = "<C-Space>";
-          modes = [ "n" "v" ];
+          modes = [
+            "n"
+            "v"
+          ];
         };
         MkdnUpdateNumbering = {
           key = "<leader>mn";
@@ -137,7 +152,14 @@ in {
       enable = true;
       settings = {
         heading = {
-          icons = [ "# " "󰲣 " "󰲥 " "󰲧 " "󰲩 " "󰲫 " ];
+          icons = [
+            "# "
+            "󰲣 "
+            "󰲥 "
+            "󰲧 "
+            "󰲩 "
+            "󰲫 "
+          ];
           sign = false;
           backgrounds = [ "RenderMarkdownBg" ];
           foregrounds = [
@@ -150,8 +172,12 @@ in {
           ];
         };
         checkbox = {
-          unchecked = { highlight = "RenderMarkdownTodo"; };
-          checked = { highlight = "RenderMarkdownDone"; };
+          unchecked = {
+            highlight = "RenderMarkdownTodo";
+          };
+          checked = {
+            highlight = "RenderMarkdownDone";
+          };
           custom = {
             pending = {
               raw = "[-]";

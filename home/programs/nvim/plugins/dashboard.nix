@@ -4,7 +4,8 @@ let
   muted = "#${config.lib.stylix.colors.base03}";
   foreground = "#${config.lib.stylix.colors.base05}";
   configDir = config.var.configDirectory;
-in {
+in
+{
 
   programs.nixvim.highlight = {
     AlphaHeaderColor.fg = accent;
@@ -90,8 +91,7 @@ in {
           {
             type = "button";
             val = "  Keybindings";
-            on_press.__raw =
-              "function() vim.cmd[[e ${configDir}/docs/KEYBINDINGS.md]] end";
+            on_press.__raw = "function() vim.cmd[[e ${configDir}/docs/KEYBINDINGS.md]] end";
             opts = {
               shortcut = "nc";
               position = "center";

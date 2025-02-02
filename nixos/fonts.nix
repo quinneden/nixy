@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
 
   fonts = {
     packages = with pkgs; [
@@ -15,6 +16,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      nerd-fonts.caskaydia-cove
       nerd-fonts.fira-code
       nerd-fonts.meslo-lg
       openmoji-color
@@ -26,9 +28,18 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "FiraCode Nerd Font Mono" "Noto Color Emoji" ];
-        sansSerif = [ "SFProDisplay Nerd Font" "Noto Color Emoji" ];
-        serif = [ "SFProDisplay Nerd Font" "Noto Color Emoji" ];
+        monospace = [
+          "CaskaydiaCove Nerd Font Mono"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "SFProDisplay Nerd Font"
+          "Noto Color Emoji"
+        ];
+        serif = [
+          "SFProDisplay Nerd Font"
+          "Noto Color Emoji"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

@@ -1,19 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   boot = {
     bootspec.enable = true;
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot = {
-        enable = true;
-        consoleMode = "auto";
-        configurationLimit = 8;
-      };
-    };
-    tmp.cleanOnBoot = true;
-    kernelPackages =
-      pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
+    consoleLogLevel = 0;
+    initrd.verbose = false;
 
-    # Silent boot
     kernelParams = [
       "quiet"
       "splash"
@@ -22,7 +13,21 @@
       "rd.udev.log_level=3"
       "udev.log_priority=3"
     ];
-    consoleLogLevel = 0;
-    initrd.verbose = false;
+
+    loader = {
+      efi.canTouchEfiVariables = false;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "auto";
+        configurationLimit = 8;
+      };
+    };
+
+    m1n1CustomLogo = pkgs.fetchurl {
+      url = "https://f.qeden.me/bootlogo-snowflake-white.png";
+      hash = "sha256-6VpPDZSYD57m4LZRPQuOWtR7z70BQ0A2f2jZgjXDiKs=";
+    };
+
+    tmp.cleanOnBoot = true;
   };
 }

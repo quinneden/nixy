@@ -1,2 +1,4 @@
 todolist.md
 .sops.yaml
+.DS_Store
+result/

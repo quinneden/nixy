@@ -1,5 +1,10 @@
 # So best window tiling manager
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   border-size = config.var.theme.border-size;
   gaps-in = config.var.theme.gaps-in;
@@ -9,13 +14,14 @@ let
   rounding = config.var.theme.rounding;
   blur = config.var.theme.blur;
   keyboardLayout = config.var.keyboardLayout;
-in {
+in
+{
 
   imports = [
     ./animations.nix
     ./bindings.nix
     ./polkitagent.nix
-    # ./hyprspace.nix 
+    # ./hyprspace.nix
   ];
 
   home.packages = with pkgs; [
@@ -117,7 +123,9 @@ in {
           range = 20;
           render_power = 3;
         };
-        blur = { enabled = if blur then "true" else "false"; };
+        blur = {
+          enabled = if blur then "true" else "false";
+        };
       };
 
       master = {
@@ -126,7 +134,9 @@ in {
         mfact = 0.5;
       };
 
-      gestures = { workspace_swipe = true; };
+      gestures = {
+        workspace_swipe = true;
+      };
 
       misc = {
         vfr = true;
@@ -137,10 +147,16 @@ in {
         new_window_takes_over_fullscreen = 2;
       };
 
-      windowrulev2 =
-        [ "float, tag:modal" "pin, tag:modal" "center, tag:modal" ];
+      windowrulev2 = [
+        "float, tag:modal"
+        "pin, tag:modal"
+        "center, tag:modal"
+      ];
 
-      layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
+      layerrule = [
+        "noanim, launcher"
+        "noanim, ^ags-.*"
+      ];
 
       input = {
         kb_layout = keyboardLayout;
@@ -160,6 +176,5 @@ in {
 
     };
   };
-  systemd.user.targets.hyprland-session.Unit.Wants =
-    [ "xdg-desktop-autostart.target" ];
+  systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
 }

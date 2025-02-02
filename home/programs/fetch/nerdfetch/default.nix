@@ -195,9 +195,7 @@ let
           flatpak) packages="$(flatpak list --app | wc -l)" ;;
           brew) packages="$(printf '%s\n' "$(brew --cellar)/"* | wc -l)" ;;
           port) packages="$(port installed | wc -l)" ;;
-          dpkg-query) packages="$(dpkg-query -f '${
-            "binary:Package"
-          }\n' -W | wc -l)" ;;
+          dpkg-query) packages="$(dpkg-query -f '${"binary:Package"}\n' -W | wc -l)" ;;
           rpm) packages="$(rpm -qa --last | wc -l)" ;;
           yum) packages="$(yum list installed | wc -l)" ;;
           dnf) packages="$(dnf list installed | wc -l)" ;;
@@ -366,4 +364,7 @@ let
         """
   '';
 
-in { home.packages = [ nerdfetch ]; }
+in
+{
+  home.packages = [ nerdfetch ];
+}

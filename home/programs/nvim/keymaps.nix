@@ -14,12 +14,18 @@
           # General Mappings
           {
             __unkeyed-1 = "<leader>c";
-            mode = [ "n" "v" ];
+            mode = [
+              "n"
+              "v"
+            ];
             group = "+code";
           }
           {
             __unkeyed-1 = "<leader>d";
-            mode = [ "n" "v" ];
+            mode = [
+              "n"
+              "v"
+            ];
             group = "+debug";
           }
           {

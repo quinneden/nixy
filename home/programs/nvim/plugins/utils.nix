@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   programs.nixvim = {
     highlightOverride = {
       FloatBorder.fg = "#${config.lib.stylix.colors.base0D}";

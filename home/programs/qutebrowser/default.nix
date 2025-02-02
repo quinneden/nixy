@@ -64,9 +64,7 @@ let
 
     buildPhase = ''
       npm install
-      cp ${
-        pkgs.writeText "src/routes/config.json" settings
-      } src/routes/config.json
+      cp ${pkgs.writeText "src/routes/config.json" settings} src/routes/config.json
       npm run build
       mkdir $out
       mv build $out
@@ -78,7 +76,8 @@ let
     };
   };
 
-in {
+in
+{
 
   imports = [ ./duckduckgo-colorscheme.nix ];
 
@@ -124,8 +123,7 @@ in {
       };
 
       colors = {
-        webpage.preferred_color_scheme =
-          "dark"; # Enable dark mode for websites that support it
+        webpage.preferred_color_scheme = "dark"; # Enable dark mode for websites that support it
       };
 
       statusbar.show = "in-mode";
@@ -156,7 +154,9 @@ in {
         remove_finished = 0;
       };
 
-      hints = { radius = 1; };
+      hints = {
+        radius = 1;
+      };
 
       scrolling = {
         bar = "never";

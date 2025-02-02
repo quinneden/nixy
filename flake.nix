@@ -6,57 +6,77 @@
   '';
 
   inputs = {
-    # FIX: Temp fix for nvidia drivers
-    nixpkgs.url =
-      "github:Bot-wxt1221/nixpkgs/dd9e0be762e4c60fe5d1d37be667daeec8f17fc1";
-    # "github:nixos/nixpkgs/nixos-unstable";
+    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
+    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+    hyprspace.url = "github:KZDKM/Hyprspace";
+    nh.url = "github:viperml/nh";
+    nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+    stylix.url = "github:danth/stylix";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
+
+    nixos-apple-silicon = {
+      url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprspace = { url = "github:KZDKM/Hyprspace"; };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    stylix.url = "github:danth/stylix";
-    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
-    nur.url = "github:nix-community/NUR";
-    zen-browser.url =
-      "git+https://git.sr.ht/~canasta/zen-browser-flake/"; # updated flake
   };
 
-  outputs = inputs@{ nixpkgs, ... }: {
-    nixosConfigurations = {
-      nixy = # CHANGEME: This should match the 'hostname' in your variables.nix file
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+  outputs =
+    inputs@{ nixpkgs, ... }:
+    let
+      secrets =
+        with nixpkgs.lib;
+        genAttrs [
+          "cachix"
+          "cloudflare"
+          "github"
+          "pubkeys"
+        ] (s: builtins.fromJSON (readFile ./.secrets/${s}.json));
+    in
+    {
+      nixosConfigurations = {
+        nixos-macmini = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit secrets; };
           modules = [
             {
-              nixpkgs.overlays =
-                [ inputs.hyprpanel.overlay inputs.nur.overlays.default ];
+              nixpkgs.overlays = with inputs; [
+                hyprpanel.overlay
+                nh.overlays.default
+                nix-shell-scripts.overlays.default
+                nur.overlays.default
+              ];
               _module.args = { inherit inputs; };
             }
-            inputs.nixos-hardware.nixosModules.omen-16-n0005ne # CHANGEME: check https://github.com/NixOS/nixos-hardware
-            inputs.home-manager.nixosModules.home-manager
-            inputs.stylix.nixosModules.stylix
-            ./hosts/laptop/configuration.nix # CHANGEME: change the path to match your host folder
+            inputs.home-manager.nixosModules.default
+            inputs.lix-module.nixosModules.default
+            inputs.nixos-apple-silicon.nixosModules.default
+            inputs.stylix.nixosModules.default
+            # ./hosts/macmini/configuration.nix
           ];
         };
 
+      };
+
+      formatter = nixpkgs.legacyPackages.aarch64-linux.nixfmt-rfc-style;
     };
-  };
 }

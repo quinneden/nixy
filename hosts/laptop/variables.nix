@@ -1,11 +1,11 @@
-{ config, ... }: {
+{ config, ... }:
+{
   imports = [ ../../nixos/variables-config.nix ];
 
   config.var = {
     hostname = "nixy";
     username = "hadi";
-    configDirectory = "/home/" + config.var.username
-      + "/.config/nixos"; # The path of the nixos configuration directory
+    configDirectory = "/home/" + config.var.username + "/.config/nixos"; # The path of the nixos configuration directory
 
     keyboardLayout = "fr";
 
