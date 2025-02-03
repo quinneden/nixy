@@ -20,6 +20,7 @@
       nerd-fonts.fira-code
       nerd-fonts.meslo-lg
       openmoji-color
+      operator-mono-nerd-font
       twemoji-color-font
       inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd
     ];

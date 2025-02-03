@@ -97,6 +97,7 @@ with lib;
     initExtra =
       ''
         for f ($HOME/.config/zsh/functions/*(N.)); do source $f; done
+        autoload -U compinit; compinit
       ''
       + (optionalString isDarwin initExtraDarwin);
 

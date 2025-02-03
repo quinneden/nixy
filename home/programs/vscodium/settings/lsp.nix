@@ -17,9 +17,6 @@ with lib;
       "formatting" = {
         "command" = [ "nixfmt" ];
       };
-      # "diagnostics" = {
-      #   "ignored" = [ "unused_binding" ];
-      # };
     };
   };
 }

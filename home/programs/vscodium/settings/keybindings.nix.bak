@@ -1,0 +1,101 @@
+{ lib, pkgs, ... }:
+
+with lib;
+
+let
+  inherit (pkgs.stdenv) isDarwin;
+
+  mapKeys =
+    f:
+    mapAttrsToList (
+      name: value:
+      {
+        key = name;
+        command = value.command or value;
+      }
+      // optionalAttrs (isAttrs value && hasAttr "when" value) { when = value.when; }
+    ) f;
+
+  intPairs = {
+    "1" = "First";
+    "2" = "Second";
+    "3" = "Third";
+    "4" = "Fourth";
+    "5" = "Fifth";
+    "6" = "Sixth";
+    "7" = "Seventh";
+    "8" = "Eighth";
+    "9" = "Last";
+  };
+
+  mod = if isDarwin then "cmd" else "ctrl";
+  mod' = if isLinux then "cmd" else "ctrl";
+  modShift = "${mod}+shift";
+  modShift' = "${mod'}+shift";
+in
+mapKeys {
+  "${mod}+/" = {
+    command = "editor.action.commentLine";
+    when = "editorTextFocus && !editorReadonly";
+  };
+
+  "${mod'}+/" = {
+    command = "editor.action.commentLine";
+    when = "editorTextFocus && !editorReadonly";
+  };
+
+  "${modShift}+/" = {
+    command = "editor.action.blockComment";
+    when = "editorTextFocus && !editorReadonly";
+  };
+
+  "${modShift'}+/" = {
+    command = "editor.action.blockComment";
+    when = "editorTextFocus && !editorReadonly";
+  };
+
+  "${mod'}+z" = "undo";
+  "${mod'}+z" = "undo";
+
+  "${modShift}+z" = "redo";
+  "${modShift}+z" = "redo";
+
+  "${modShift}+w" = {
+    command = "workbench.action.terminal.toggleTerminal";
+    when = "terminal.active";
+  };
+
+  "${mod}+d" = {
+    command = "editor.action.duplicateSelection";
+    when = "editorTextFocus && !editorReadonly";
+  };
+
+  "${modShift}+e" = {
+    command = "workbench.view.explorer";
+    when = "viewContainer.workbench.view.explorer.enabled";
+  };
+
+  "${modShift}+f" = "workbench.action.findInFiles";
+
+  "${mod}+left" = "workbench.action.focusPreviousGroup";
+  "${mod}+right" = "workbench.action.focusNextGroup";
+  "${modShift}+i" = "copilot-chat.focus";
+
+  "${mod}+n" = {
+    command = "explorer.newFile";
+    when = "explorerViewletFocus";
+  };
+
+  "${modShift}+n" = {
+    command = "explorer.newFolder";
+    when = "explorerViewletFocus";
+  };
+}
+++ map (n: {
+  key = "${mod}+${toString n}";
+  command = "workbench.action.openEditorAtIndex${toString n}";
+}) (range 1 9)
+++ mapAttrsToList (n: o: {
+  key = "${mod'}+${n}";
+  command = "workbench.action.focus${o}EditorGroup";
+}) intPairs

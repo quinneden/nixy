@@ -1,0 +1,10 @@
+{
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.inlineSuggest.syntaxHighlightingEnabled": false,
+  "editor.quickSuggestionsDelay": 300,
+  "editor.suggest.shareSuggestSelections": false,
+  "editor.suggest.showIcons": false,
+  "editor.inlineSuggest.edits.experimental.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.suppressSuggestions": true
+}

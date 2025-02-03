@@ -1,14 +1,20 @@
-{ pkgs, config, ... }:
 {
-
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
-    ../../home/programs/duckduckgo-colorscheme
     ../../home/programs/fetch
     ../../home/programs/git
+    ../../home/programs/gnupg
     ../../home/programs/kitty
     ../../home/programs/lazygit
     ../../home/programs/micro
+    ../../home/programs/nh
     ../../home/programs/shell
+    ../../home/programs/ssh
     ../../home/programs/thunar
     ../../home/programs/vscodium
     ../../home/programs/zen
@@ -101,6 +107,11 @@
 
     # Don't touch this
     stateVersion = "24.05";
+  };
+
+  stylix.targets = {
+    micro.enable = false;
+    vscode.enable = false;
   };
 
   programs.home-manager.enable = true;

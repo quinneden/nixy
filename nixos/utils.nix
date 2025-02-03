@@ -14,8 +14,9 @@ in
   };
   console.keyMap = keyboardLayout;
 
+  security.sudo.wheelNeedsPassword = false;
+
   environment.variables = {
-    NH_FLAKE = config.var.configDirectory;
     XDG_DATA_HOME = "$HOME/.local/share";
     # PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
     EDITOR = "micro";
@@ -30,6 +31,14 @@ in
     upower.enable = true;
     # power-profiles-daemon.enable = true;
     udisks2.enable = true;
+
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
+    };
   };
 
   documentation = {

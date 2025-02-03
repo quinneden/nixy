@@ -16,14 +16,17 @@
     ../../nixos/utils.nix
     ../../nixos/variables-config.nix
     ../../nixos/xdg-portal.nix
-    ../../themes/stylix/2026.nix
+    # ../../themes/stylix/2026.nix
     ./hardware-configuration.nix
     ./variables.nix
   ];
 
-  home-manager.users."${config.var.username}" = import ./home.nix;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
 
-  security.sudo.wheelNeedsPassword = false;
+  home-manager.users."${config.var.username}" = import ./home.nix;
 
   # Don't touch this
   system.stateVersion = "24.05";

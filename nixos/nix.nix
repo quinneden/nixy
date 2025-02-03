@@ -5,7 +5,7 @@
   ...
 }:
 let
-  autoGarbageCollector = config.var.autoGarbageCollector;
+  inherit (config.var) autoGarbageCollector;
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -17,6 +17,7 @@ in
     settings = {
       access-tokens = [ "github=${secrets.github.token}" ];
       auto-optimise-store = true;
+      accept-flake-config = true;
 
       experimental-features = [
         "nix-command"
@@ -36,11 +37,12 @@ in
       trusted-users = [ "quinn" ];
       warn-dirty = false;
     };
-    gc = {
-      automatic = autoGarbageCollector;
-      persistent = true;
-      dates = "daily";
-      options = "--delete-older-than 7d";
-    };
+
+    # gc = {
+    #   automatic = autoGarbageCollector;
+    #   persistent = true;
+    #   dates = "daily";
+    #   options = "--delete-older-than 7d";
+    # };
   };
 }

@@ -1,5 +1,4 @@
 {
-  # https://github.com/anotherhadi/nixy
   description = ''
     Nixy is a NixOS configuration with home-manager, secrets and custom theming all in one place.
     It's a simple way to manage your system configuration and dotfiles.
@@ -62,6 +61,7 @@
                 nh.overlays.default
                 nix-shell-scripts.overlays.default
                 nur.overlays.default
+                self.overlays.default
               ];
               _module.args = { inherit inputs; };
             }
@@ -72,7 +72,10 @@
             ./hosts/macmini/configuration.nix
           ];
         };
+      };
 
+      overlays = {
+        default = import ./pkgs;
       };
 
       formatter = nixpkgs.legacyPackages.aarch64-linux.nixfmt-rfc-style;

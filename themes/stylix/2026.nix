@@ -3,22 +3,11 @@
   pkgs,
   ...
 }:
-let
-  base16-schemes = pkgs.base16-schemes.overrideAttrs {
-    version = "spec-0.11";
-    src = pkgs.fetchFromGitHub {
-      owner = "tinted-theming";
-      repo = "schemes";
-      rev = "refs/heads/spec-0.11";
-      hash = "sha256-y+9cvOA6BLKT0WfebDsyUpUa/YxKow9hTjBp6HpQv68=";
-    };
-  };
-in
 {
   stylix = {
     enable = true;
 
-    base16Scheme = (base16-schemes + "/share/themes/gigavolt.yaml");
+    base16Scheme = pkgs.base16-schemes + "/share/themes/hardcore.yaml";
 
     cursor = {
       package = pkgs.phinger-cursors;
@@ -31,20 +20,24 @@ in
         package = pkgs.nerd-fonts.caskaydia-cove;
         name = "CaskaydiaCove Nerd Font Mono";
       };
+
       sansSerif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
+
       serif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
+
       emoji = {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+
       sizes = {
-        applications = 13;
+        applications = 14;
         desktop = 13;
         popups = 13;
         terminal = 13;
@@ -54,8 +47,8 @@ in
     polarity = "dark";
 
     image = pkgs.fetchurl {
-      url = "https://github.com/anotherhadi/nixy-wallpapers/blob/main/wallpapers/3.png?raw=true";
-      sha256 = "sha256-fT2ah18IAxoy3hzlLl9SkqhchzfVvZneUrZWzntMo40=";
+      url = "https://github.com/anotherhadi/nixy-wallpapers/blob/main/wallpapers/mountains-black.png?raw=true";
+      hash = "sha256-L5uGI6QNnlIrJJOzGHRhkYYb51JrVqFME1+LyTimUgs=";
     };
   };
 }
