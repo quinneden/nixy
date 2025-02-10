@@ -3,7 +3,6 @@ let
   keyboardLayout = config.var.keyboardLayout;
 in
 {
-
   services = {
     xserver = {
       enable = true;

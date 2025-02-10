@@ -13,7 +13,7 @@
 
   "workbench.layoutControl.enabled" = true;
 
-  "workbench.tree.indent" = 10;
+  "workbench.tree.indent" = 17;
 
   "workbench.view.showQuietly" = {
     "workbench.panel.output" = true;

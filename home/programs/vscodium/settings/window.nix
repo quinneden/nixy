@@ -1,4 +1,5 @@
 { isDarwin, ... }:
+
 {
   "window.commandCenter" = true;
 
@@ -12,7 +13,7 @@
 
   "window.zoomLevel" = if isDarwin then 0.3 else 0.4;
 
-  "workbench.tree.indent" = 10;
+  "workbench.tree.indent" = 14;
 
   "workbench.view.showQuietly" = {
     "workbench.panel.output" = true;
