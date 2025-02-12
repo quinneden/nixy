@@ -61,7 +61,6 @@ in
       "$shiftMod" = "SUPER_SHIFT";
 
       exec-once = [
-        # "${pkgs.bitwarden}/bin/bitwarden"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 

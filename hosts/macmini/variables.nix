@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
+
 with lib;
+
 {
   imports = [ ../../nixos/variables-config.nix ];
 
