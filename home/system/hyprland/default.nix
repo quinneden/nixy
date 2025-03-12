@@ -1,5 +1,10 @@
 # So best window tiling manager
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   border-size = config.theme.border-size;
   gaps-in = config.theme.gaps-in;
@@ -9,10 +14,15 @@ let
   rounding = config.theme.rounding;
   blur = config.theme.blur;
   keyboardLayout = config.var.keyboardLayout;
-in {
+in
+{
 
-  imports =
-    [ ./animations.nix ./bindings.nix ./polkitagent.nix ./hyprspace.nix ];
+  imports = [
+    ./animations.nix
+    ./bindings.nix
+    ./polkitagent.nix
+    ./hyprspace.nix
+  ];
 
   home.packages = with pkgs; [
     qt5.qtwayland
@@ -122,7 +132,9 @@ in {
         mfact = 0.5;
       };
 
-      gestures = { workspace_swipe = true; };
+      gestures = {
+        workspace_swipe = true;
+      };
 
       misc = {
         vfr = true;
@@ -133,12 +145,18 @@ in {
         new_window_takes_over_fullscreen = 2;
       };
 
-      windowrulev2 =
-        [ "float, tag:modal" "pin, tag:modal" "center, tag:modal" ];
+      windowrulev2 = [
+        "float, tag:modal"
+        "pin, tag:modal"
+        "center, tag:modal"
+      ];
 
       windowrule = [ "fullscreen, io.github.alainm23.planify" ];
 
-      layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
+      layerrule = [
+        "noanim, launcher"
+        "noanim, ^ags-.*"
+      ];
 
       input = {
         kb_layout = keyboardLayout;

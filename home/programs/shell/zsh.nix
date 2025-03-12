@@ -1,9 +1,21 @@
 # My shell configuration
-{ pkgs, lib, config, ... }:
-let fetch = config.theme.fetch; # neofetch, nerdfetch, pfetch
-in {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  fetch = config.theme.fetch; # neofetch, nerdfetch, pfetch
+in
+{
 
-  home.packages = with pkgs; [ bat ripgrep tldr sesh ];
+  home.packages = with pkgs; [
+    bat
+    ripgrep
+    tldr
+    sesh
+  ];
 
   home.sessionPath = [ "$HOME/go/bin" ];
 
@@ -16,14 +28,16 @@ in {
 
     initExtraFirst = ''
       bindkey -e
-      ${if fetch == "neofetch" then
-        pkgs.neofetch + "/bin/neofetch"
-      else if fetch == "nerdfetch" then
-        "nerdfetch"
-      else if fetch == "pfetch" then
-        "echo; ${pkgs.pfetch}/bin/pfetch"
-      else
-        ""}
+      ${
+        if fetch == "neofetch" then
+          pkgs.neofetch + "/bin/neofetch"
+        else if fetch == "nerdfetch" then
+          "nerdfetch"
+        else if fetch == "pfetch" then
+          "echo; ${pkgs.pfetch}/bin/pfetch"
+        else
+          ""
+      }
 
       function sesh-sessions() {
         session=$(sesh list -t -c | fzf --height 70% --reverse)
@@ -44,15 +58,13 @@ in {
     };
 
     profileExtra = lib.optionalString (config.home.sessionPath != [ ]) ''
-      export PATH="$PATH''${PATH:+:}${
-        lib.concatStringsSep ":" config.home.sessionPath
-      }"
+      export PATH="$PATH''${PATH:+:}${lib.concatStringsSep ":" config.home.sessionPath}"
     '';
 
-    #NOTE- for btop to show gpu usage 
+    #NOTE- for btop to show gpu usage
     #may want to check the driver version with:
     #nix path-info -r /run/current-system | grep nvidia-x11
-    #and 
+    #and
     #nix search nixpkgs nvidia_x11
     sessionVariables = {
       LD_LIBRARY_PATH = lib.concatStringsSep ":" [
@@ -79,8 +91,7 @@ in {
 
       wireguard-import = "nmcli connection import type wireguard file";
 
-      notes =
-        "nvim ~/nextcloud/notes/index.md --cmd 'cd ~/nextcloud/notes' -c ':Telescope find_files'";
+      notes = "nvim ~/nextcloud/notes/index.md --cmd 'cd ~/nextcloud/notes' -c ':Telescope find_files'";
       note = "notes";
 
       # git

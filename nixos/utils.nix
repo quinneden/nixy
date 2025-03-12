@@ -3,7 +3,8 @@ let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
   configDir = config.var.configDirectory;
-in {
+in
+{
   networking.hostName = hostname;
 
   networking.networkmanager.enable = true;
@@ -13,7 +14,11 @@ in {
     enable = config.var.autoUpgrade;
     dates = "04:00";
     flake = "${configDir}";
-    flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+    ];
     allowReboot = false;
   };
 

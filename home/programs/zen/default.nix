@@ -1,4 +1,9 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   accent = "#${config.lib.stylix.colors.base0D}";
   background = "#${config.lib.stylix.colors.base00}";
@@ -62,9 +67,7 @@ let
 
     buildPhase = ''
       npm install
-      cp ${
-        pkgs.writeText "src/routes/config.json" settings
-      } src/routes/config.json
+      cp ${pkgs.writeText "src/routes/config.json" settings} src/routes/config.json
       npm run build
       mkdir $out
       mv build $out
@@ -75,12 +78,12 @@ let
       homepage = "https://github.com/anotherhadi/homepage";
     };
   };
-in {
+in
+{
   home.file.".config/homepage" = {
     source = "${homepage}/build";
     recursive = true;
   };
 
-  home.packages = with pkgs;
-    [ inputs.zen-browser.packages."${system}".default ];
+  home.packages = with pkgs; [ inputs.zen-browser.packages."${system}".default ];
 }
